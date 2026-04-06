@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dir \"d:\\\\projetosPessoais\\\\New-Portifolio\")",
+      "Bash(npx create-next-app@latest . --typescript --tailwind --eslint --app --src-dir --import-alias \"@/*\" --no-git)",
+      "Bash(npx create-next-app@latest portfolio --typescript --tailwind --eslint --app --src-dir --import-alias \"@/*\" --no-git)",
+      "Bash(cp -r portfolio/. .)",
+      "Bash(rm -rf portfolio)",
+      "Bash(cp portfolio/package-lock.json .)",
+      "Bash(cp portfolio/AGENTS.md .)",
+      "Bash(cp portfolio/CLAUDE.md .)",
+      "Bash(npm install:*)",
+      "Bash(npm run:*)",
+      "Bash(node -e \"const si = require\\('react-icons/si'\\); const keys = Object.keys\\(si\\).filter\\(k => k.toLowerCase\\(\\).includes\\('amazon'\\)\\); console.log\\(keys\\)\")",
+      "Bash(node -e \"const si = require\\('react-icons/si'\\); const keys = Object.keys\\(si\\).filter\\(k => k.toLowerCase\\(\\).includes\\('aws'\\)\\); console.log\\(keys\\)\")"
+    ]
+  }
+}
