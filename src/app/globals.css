@@ -1,6 +1,22 @@
 @import "tailwindcss";
 
+/* Light theme (default) */
 :root {
+  --bg-primary: #f5f5ff;
+  --bg-secondary: #ededfa;
+  --bg-card: #ffffff;
+  --accent-primary: #5b52e8;
+  --accent-secondary: #e8406a;
+  --accent-tertiary: #0bbfa8;
+  --text-primary: #0f0f1a;
+  --text-secondary: #3a3a5c;
+  --text-muted: #7a7a9a;
+  --border: rgba(91, 82, 232, 0.2);
+  --glow: rgba(91, 82, 232, 0.3);
+}
+
+/* Dark theme */
+[data-theme="dark"] {
   --bg-primary: #0a0a0f;
   --bg-secondary: #0f0f1a;
   --bg-card: #13131f;
@@ -102,10 +118,14 @@ body {
 
 /* Glass card */
 .glass {
-  background: rgba(19, 19, 31, 0.7);
+  background: rgba(255, 255, 255, 0.6);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--border);
+}
+
+[data-theme="dark"] .glass {
+  background: rgba(19, 19, 31, 0.7);
 }
 
 /* Noise texture overlay */
@@ -142,9 +162,14 @@ body {
   position: fixed;
   inset: 0;
   z-index: -2;
-  background: linear-gradient(-45deg, #0a0a0f, #0f0f1a, #12102a, #0a1520);
+  background: linear-gradient(-45deg, #f0f0ff, #e8e8fa, #eef0ff, #f5f0ff);
   background-size: 400% 400%;
   animation: gradient-shift 15s ease infinite;
+}
+
+[data-theme="dark"] .animated-gradient::after {
+  background: linear-gradient(-45deg, #0a0a0f, #0f0f1a, #12102a, #0a1520);
+  background-size: 400% 400%;
 }
 
 /* Cursor blink */

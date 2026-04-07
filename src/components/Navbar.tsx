@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { useTheme } from "@/components/ThemeProvider";
+import { Sun, Moon } from "lucide-react";
 
 const links = [
   { href: "#about", label: "About" },
@@ -16,6 +18,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
+  const { theme, toggle } = useTheme();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -65,16 +68,34 @@ export default function Navbar() {
           ))}
         </ul>
 
-        {/* CTA */}
-        <motion.a
-          href="#contact"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="hidden md:flex items-center gap-2 rounded-lg border border-[var(--accent-primary)] text-[var(--accent-primary)] text-sm font-medium hover:bg-[var(--accent-primary)] hover:text-white transition-all duration-200"
-          style={{ padding: "0.45rem 1.1rem" }}
-        >
-          Hire me
-        </motion.a>
+        {/* Theme toggle + CTA */}
+        <div className="hidden md:flex items-center gap-3">
+          <motion.button
+            onClick={toggle}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            aria-label="Toggle theme"
+            className="rounded-lg border border-[var(--border)] transition-all duration-200"
+            style={{
+              padding: "0.45rem 0.65rem",
+              color: "var(--text-secondary)",
+              background: "transparent",
+              cursor: "pointer",
+            }}
+          >
+            {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
+          </motion.button>
+
+          <motion.a
+            href="#contact"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="flex items-center gap-2 rounded-lg border border-[var(--accent-primary)] text-[var(--accent-primary)] text-sm font-medium hover:bg-[var(--accent-primary)] hover:text-white transition-all duration-200"
+            style={{ padding: "0.45rem 1.1rem" }}
+          >
+            Hire me
+          </motion.a>
+        </div>
 
         {/* Mobile hamburger */}
         <button
