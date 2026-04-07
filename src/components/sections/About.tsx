@@ -1,12 +1,12 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { useSectionInView } from "@/hooks/useSectionInView";
+import { motion } from "framer-motion";
 import { Code2, Clock, Briefcase, Rocket } from "lucide-react";
 
 const stats = [
   { icon: Code2, value: "2+", label: "Anos de Experiência" },
-  { icon: Briefcase, value: "Go Live", label: "Empresa Atual" },
+  { icon: Briefcase, value: "Go Live Tech", label: "Empresa Atual" },
   { icon: Clock, value: "Full", label: "Stack Developer" },
   { icon: Rocket, value: "∞", label: "Vontade de Aprender" },
 ];
@@ -22,8 +22,8 @@ const item = {
 };
 
 export default function About() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
+  
+  const { ref, inView } = useSectionInView();
 
   return (
     <section id="about" className="section">
@@ -35,6 +35,7 @@ export default function About() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5 }}
           className="flex items-center gap-3 mb-12"
+          style={{ marginBottom: "1rem" }}
         >
           <span className="text-xs font-mono text-[var(--accent-primary)] tracking-widest uppercase">
             01. Sobre mim
@@ -49,7 +50,7 @@ export default function About() {
             initial="hidden"
             animate={inView ? "show" : "hidden"}
           >
-            <motion.h2 variants={item} className="text-4xl md:text-5xl font-bold mb-8">
+            <motion.h2 variants={item} className="text-4xl md:text-5xl font-bold mb-8" style={{ marginBottom: "1rem" }}>
               Construindo coisas{" "}
               <span className="gradient-text">que fazem sentido</span>
             </motion.h2>
@@ -69,12 +70,21 @@ export default function About() {
               chegarão projetos pessoais por aí.
             </motion.p>
 
-            <motion.div variants={item} className="flex flex-wrap gap-2">
+            <motion.div variants={item} className="flex flex-wrap" style={{ marginTop: "1.5rem", gap: "0.5rem" }}>
               {["Curioso", "Detalhista", "Colaborativo", "Focado em qualidade"].map((tag) => (
                 <span
                   key={tag}
-                  className="px-4 py-1.5 text-xs rounded-full border border-[var(--border)] text-[var(--text-secondary)] font-medium"
-                  style={{ background: "rgba(108,99,255,0.08)" }}
+                  style={{
+                    padding: "0.35rem 0.875rem",
+                    borderRadius: "9999px",
+                    border: "1px solid var(--border)",
+                    color: "var(--text-secondary)",
+                    background: "rgba(108,99,255,0.08)",
+                    fontSize: "0.75rem",
+                    fontWeight: 500,
+                    lineHeight: "1.5",
+                    display: "inline-block",
+                  }}
                 >
                   {tag}
                 </span>

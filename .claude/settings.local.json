@@ -12,7 +12,9 @@
       "Bash(npm install:*)",
       "Bash(npm run:*)",
       "Bash(node -e \"const si = require\\('react-icons/si'\\); const keys = Object.keys\\(si\\).filter\\(k => k.toLowerCase\\(\\).includes\\('amazon'\\)\\); console.log\\(keys\\)\")",
-      "Bash(node -e \"const si = require\\('react-icons/si'\\); const keys = Object.keys\\(si\\).filter\\(k => k.toLowerCase\\(\\).includes\\('aws'\\)\\); console.log\\(keys\\)\")"
+      "Bash(node -e \"const si = require\\('react-icons/si'\\); const keys = Object.keys\\(si\\).filter\\(k => k.toLowerCase\\(\\).includes\\('aws'\\)\\); console.log\\(keys\\)\")",
+      "Bash(sed -i 's|const ref = useRef\\(null\\);||' d:/projetosPessoais/New-Portifolio/src/components/sections/About.tsx d:/projetosPessoais/New-Portifolio/src/components/sections/Skills.tsx d:/projetosPessoais/New-Portifolio/src/components/sections/Experience.tsx)",
+      "Bash(sed -i 's|const inView = useInView\\(ref, { once: false, margin: \"-20%\" }\\);|const { ref, inView } = useSectionInView\\(\\);|' d:/projetosPessoais/New-Portifolio/src/components/sections/About.tsx d:/projetosPessoais/New-Portifolio/src/components/sections/Skills.tsx d:/projetosPessoais/New-Portifolio/src/components/sections/Experience.tsx)"
     ]
   }
 }

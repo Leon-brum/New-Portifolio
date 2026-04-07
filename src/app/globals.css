@@ -42,7 +42,7 @@ body {
 }
 
 body {
-  background: var(--bg-primary);
+  background: transparent;
   color: var(--text-primary);
   font-family: var(--font-sans), system-ui, sans-serif;
   overflow-x: hidden;
@@ -134,6 +134,14 @@ body {
 }
 
 .animated-gradient {
+  position: relative;
+}
+
+.animated-gradient::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -2;
   background: linear-gradient(-45deg, #0a0a0f, #0f0f1a, #12102a, #0a1520);
   background-size: 400% 400%;
   animation: gradient-shift 15s ease infinite;

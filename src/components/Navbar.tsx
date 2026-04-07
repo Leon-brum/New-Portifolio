@@ -30,16 +30,15 @@ export default function Navbar() {
       transition={{ duration: 0.6, ease: "easeOut" }}
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-        scrolled
-          ? "glass border-b border-[var(--border)] py-3"
-          : "py-6"
+        scrolled ? "glass border-b border-[var(--border)]" : ""
       )}
+      style={{ padding: scrolled ? "1.25rem 0" : "1.75rem 0" }}
     >
       <nav className="wrapper flex items-center justify-between">
         {/* Logo */}
         <motion.a
           href="#"
-          className="text-xl font-bold gradient-text font-mono"
+          className="text-2xl font-bold gradient-text font-mono"
           whileHover={{ scale: 1.05 }}
         >
           {"<dev />"}
@@ -53,7 +52,7 @@ export default function Navbar() {
                 href={link.href}
                 onClick={() => setActive(link.href)}
                 className={cn(
-                  "text-sm font-medium transition-colors duration-200 relative group",
+                  "text-base font-medium transition-colors duration-200 relative group",
                   active === link.href
                     ? "text-[var(--accent-primary)]"
                     : "text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
@@ -71,7 +70,8 @@ export default function Navbar() {
           href="#contact"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="hidden md:flex items-center gap-2 px-4 py-2 rounded-lg border border-[var(--accent-primary)] text-[var(--accent-primary)] text-sm font-medium hover:bg-[var(--accent-primary)] hover:text-white transition-all duration-200"
+          className="hidden md:flex items-center gap-2 rounded-lg border border-[var(--accent-primary)] text-[var(--accent-primary)] text-sm font-medium hover:bg-[var(--accent-primary)] hover:text-white transition-all duration-200"
+          style={{ padding: "0.45rem 1.1rem" }}
         >
           Hire me
         </motion.a>
@@ -111,7 +111,16 @@ export default function Navbar() {
                 <li key={link.href}>
                   <a
                     href={link.href}
-                    onClick={() => setMenuOpen(false)}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setMenuOpen(false);
+                      setTimeout(() => {
+                        const el = document.querySelector(link.href) as HTMLElement;
+                        if (!el) return;
+                        const top = el.getBoundingClientRect().top + window.scrollY - 80;
+                        window.scrollTo({ top, behavior: "smooth" });
+                      }, 150);
+                    }}
                     className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors text-sm font-medium"
                   >
                     {link.label}

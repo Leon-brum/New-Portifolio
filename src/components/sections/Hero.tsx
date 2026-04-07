@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowDown } from "lucide-react";
-import { FaGithub, FaLinkedin, FaGitlab } from "react-icons/fa6";
+import { FaGithub, FaLinkedin, FaInstagram } from "react-icons/fa6";
 import Image from "next/image";
 
 const ROLES = [
@@ -134,14 +134,14 @@ function TypewriterText() {
 }
 
 const socials = [
-  { icon: FaGithub, href: "https://github.com/Leonardo", label: "GitHub" },
-  { icon: FaGitlab, href: "#", label: "GitLab" },
-  { icon: FaLinkedin, href: "https://linkedin.com/in/leonardo", label: "LinkedIn" },
+  { icon: FaGithub, href: "https://github.com/Leon-brum", label: "GitHub" },
+  { icon: FaLinkedin, href: "https://www.linkedin.com/in/leonardo-moreno-b8015a294/", label: "LinkedIn" },
+  { icon: FaInstagram, href: "https://www.instagram.com/leo_of_cinder/", label: "Instagram" },
 ];
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden" style={{ paddingTop: "5rem" }}>
       <Particles />
 
       <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-[var(--accent-primary)] opacity-5 blur-3xl pointer-events-none" />
@@ -279,10 +279,21 @@ export default function Hero() {
             transition={{ duration: 0.7, delay: 0.3 }}
             className="relative flex-shrink-0"
           >
-            {/* Glow ring */}
+            {/* Glow */}
             <div
-              className="absolute inset-0 rounded-full blur-2xl opacity-30"
-              style={{ background: "linear-gradient(135deg, var(--accent-primary), var(--accent-tertiary))", transform: "scale(1.1)" }}
+              style={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                width: "110%",
+                height: "110%",
+                borderRadius: "50%",
+                background: "radial-gradient(circle, var(--accent-primary) 0%, transparent 70%)",
+                opacity: 0.25,
+                filter: "blur(24px)",
+                pointerEvents: "none",
+              }}
             />
             {/* Border gradient */}
             <div

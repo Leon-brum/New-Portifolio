@@ -1,7 +1,7 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { useSectionInView } from "@/hooks/useSectionInView";
+import { motion } from "framer-motion";
 import { Briefcase } from "lucide-react";
 
 const experiences = [
@@ -24,8 +24,8 @@ const highlights = [
 ];
 
 export default function Experience() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
+  
+  const { ref, inView } = useSectionInView();
 
   return (
     <section id="experience" className="section">
@@ -48,6 +48,7 @@ export default function Experience() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.1 }}
           className="text-4xl md:text-5xl font-bold mb-12"
+          style={{ marginBottom: "3rem", marginTop: "1rem" }}
         >
           Onde <span className="gradient-text">Trabalhei</span>
         </motion.h2>
@@ -68,26 +69,27 @@ export default function Experience() {
                   <Briefcase size={16} className="text-[var(--accent-primary)]" />
                 </div>
 
-                <div className="glass border border-[var(--border)] rounded-2xl p-5 group-hover:border-[var(--accent-primary)] transition-all duration-300">
-                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1 mb-2">
+                <div className="glass border border-[var(--border)] rounded-2xl group-hover:border-[var(--accent-primary)] transition-all duration-300" style={{ padding: "1.75rem 2rem" }}>
+                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2" style={{ marginBottom: "1rem" }}>
                     <div>
-                      <h3 className="font-bold text-[var(--text-primary)]">{exp.role}</h3>
-                      <p className="text-[var(--accent-primary)] text-sm font-medium">{exp.company}</p>
+                      <h3 className="font-bold text-lg text-[var(--text-primary)]">{exp.role}</h3>
+                      <p className="text-[var(--accent-primary)] text-sm font-medium" style={{ marginTop: "0.25rem" }}>{exp.company}</p>
                     </div>
                     <span className="text-xs text-[var(--text-muted)] font-mono whitespace-nowrap">
                       {exp.period}
                     </span>
                   </div>
 
-                  <p className="text-sm text-[var(--text-secondary)] leading-relaxed mb-3">
+                  <p className="text-sm text-[var(--text-secondary)] leading-relaxed" style={{ marginBottom: "1.25rem" }}>
                     {exp.description}
                   </p>
 
-                  <div className="flex flex-wrap gap-1.5">
+                  <div className="flex flex-wrap" style={{ gap: "0.5rem" }}>
                     {exp.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="px-2 py-0.5 text-xs rounded-md bg-[var(--bg-primary)] text-[var(--text-muted)] font-mono border border-[var(--border)]"
+                        className="text-xs rounded-md bg-[var(--bg-primary)] text-[var(--text-muted)] font-mono border border-[var(--border)]"
+                        style={{ padding: "0.3rem 0.65rem" }}
                       >
                         {tag}
                       </span>
@@ -104,14 +106,16 @@ export default function Experience() {
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.5 }}
-          className="mt-10 grid sm:grid-cols-2 gap-4"
+          style={{ marginTop: "2.5rem", gap: "1rem" }}
+          className="grid sm:grid-cols-2"
         >
           {highlights.map(({ label, value }) => (
             <div
               key={label}
-              className="glass border border-[var(--border)] rounded-xl p-4 hover:border-[var(--accent-primary)] transition-all duration-300 group"
+              className="glass border border-[var(--border)] rounded-xl hover:border-[var(--accent-primary)] transition-all duration-300 group"
+              style={{ padding: "1.25rem 1.5rem" }}
             >
-              <p className="text-xs text-[var(--text-muted)] font-mono mb-1 group-hover:text-[var(--accent-primary)] transition-colors">
+              <p className="text-xs text-[var(--text-muted)] font-mono group-hover:text-[var(--accent-primary)] transition-colors" style={{ marginBottom: "0.5rem" }}>
                 {label}
               </p>
               <p className="text-sm text-[var(--text-secondary)] font-medium">{value}</p>

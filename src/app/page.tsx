@@ -5,11 +5,12 @@ import Skills from "@/components/sections/Skills";
 import Projects from "@/components/sections/Projects";
 import Experience from "@/components/sections/Experience";
 import Contact from "@/components/sections/Contact";
-import Footer from "@/components/Footer";
+import ScrollSnap from "@/components/ScrollSnap";
 
 export default function Home() {
   return (
     <>
+      <ScrollSnap />
       <Navbar />
       <main className="w-full overflow-x-hidden">
         <Hero />
@@ -19,7 +20,6 @@ export default function Home() {
         <Experience />
         <Contact />
       </main>
-      <Footer />
     </>
   );
 }

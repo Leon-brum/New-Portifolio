@@ -25,7 +25,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
-      <body className="noise animated-gradient min-h-screen w-full">{children}</body>
+      <body className="noise animated-gradient min-h-screen w-full" suppressHydrationWarning>{children}</body>
     </html>
   );
 }

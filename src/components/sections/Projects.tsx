@@ -1,96 +1,85 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { motion, useInView, AnimatePresence } from "framer-motion";
-import { ExternalLink, Star } from "lucide-react";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useSectionInView } from "@/hooks/useSectionInView";
+import { ExternalLink } from "lucide-react";
 import { FaGithub } from "react-icons/fa6";
 
 const projects = [
   {
     id: 1,
-    title: "Project Alpha",
+    title: "Go AMS",
     description:
-      "A modern SaaS platform with real-time collaboration, built with Next.js and WebSockets. Features a drag-and-drop interface and multi-tenant architecture.",
-    tags: ["Next.js", "TypeScript", "Prisma", "WebSocket"],
+      "Plataforma fullstack de automação de processos desenvolvida do zero. Inclui criação de projetos, workflows visuais com ReactFlow, sistema multi-tenant, cadastros PF/PJ e autenticação robusta via AWS Cognito. Automações em tempo real com SSE.",
+    tags: ["Next.js", "React", "Sequelize", "MySQL", "DynamoDB", "AWS Cognito", "Lambda", "SSE", "ReactFlow", "Tailwind"],
     category: "fullstack",
     featured: true,
-    stars: 124,
+    stars: 0,
     color: "from-[var(--accent-primary)] to-[var(--accent-tertiary)]",
-    demo: "#",
+    demo: "https://goams-frontend.fly.dev/LoginPage",
     repo: "#",
   },
   {
     id: 2,
-    title: "E-Commerce Platform",
+    title: "GoLiveZap",
     description:
-      "High-performance e-commerce solution with Stripe integration, inventory management, and an admin dashboard with analytics.",
-    tags: ["React", "Node.js", "PostgreSQL", "Stripe"],
+      "Plataforma completa de atendimento via WhatsApp com integração à API oficial da Meta. Suporte a lançamento de campanhas, múltiplos atendentes, filas e automações em tempo real com recursos AWS.",
+    tags: ["Next.js", "React", "PostgreSQL", "Sequelize", "AWS Cognito", "Real-time", "Tailwind"],
     category: "fullstack",
     featured: true,
-    stars: 87,
+    stars: 0,
     color: "from-[var(--accent-secondary)] to-[var(--accent-primary)]",
     demo: "#",
     repo: "#",
   },
   {
     id: 3,
-    title: "AI Content Dashboard",
+    title: "RH Med — Saúde Mental",
     description:
-      "Dashboard that integrates multiple AI APIs to generate, manage and schedule content. Built with a clean, minimal UI.",
-    tags: ["React", "Python", "FastAPI", "OpenAI"],
-    category: "frontend",
+      "Aplicação para a empresa RH Med com formulários dinâmicos de saúde mental criados pela equipe médica. Colaboradores preenchem avaliações com métricas e dashboards totalmente variáveis conforme a montagem dos formulários.",
+    tags: ["Next.js", "React", "SQL Server", "Sequelize", "AWS Cognito", "Tailwind"],
+    category: "fullstack",
     featured: false,
-    stars: 56,
+    stars: 0,
     color: "from-[var(--accent-tertiary)] to-[var(--accent-primary)]",
     demo: "#",
     repo: "#",
   },
   {
     id: 4,
-    title: "Dev CLI Tool",
+    title: "BMS RHTech",
     description:
-      "A powerful CLI toolkit for developers that automates common setup tasks, generates boilerplate, and manages project configurations.",
-    tags: ["Node.js", "TypeScript", "CLI"],
-    category: "backend",
+      "Sistema de RH para a empresa BMS com gestão de funcionários, cálculo de folha, pagamentos e demais processos de recursos humanos. Backend e frontend com banco na Azure.",
+    tags: ["Next.js", "React", "Azure SQL", "Sequelize", "Tailwind"],
+    category: "fullstack",
     featured: false,
-    stars: 203,
+    stars: 0,
     color: "from-[var(--accent-primary)] to-[var(--accent-secondary)]",
     demo: "#",
     repo: "#",
   },
   {
     id: 5,
-    title: "Design System",
+    title: "Documentação Go AMS",
     description:
-      "A comprehensive component library with 60+ components, dark mode support, accessibility-first, and full TypeScript types.",
-    tags: ["React", "Storybook", "CSS", "TypeScript"],
+      "Site de documentação estático do Go AMS, desenvolvido com foco em clareza e navegação fluida. Apresenta guias, referências de API e fluxos da plataforma com design moderno.",
+    tags: ["Next.js", "React", "Tailwind", "MDX"],
     category: "frontend",
     featured: false,
-    stars: 312,
+    stars: 0,
     color: "from-[var(--accent-secondary)] to-[var(--accent-tertiary)]",
-    demo: "#",
-    repo: "#",
-  },
-  {
-    id: 6,
-    title: "Real-time Chat App",
-    description:
-      "End-to-end encrypted messaging app with rooms, file sharing, and presence indicators. Mobile-responsive.",
-    tags: ["Next.js", "Socket.io", "Redis", "MongoDB"],
-    category: "fullstack",
-    featured: false,
-    stars: 145,
-    color: "from-[var(--accent-tertiary)] to-[var(--accent-secondary)]",
     demo: "#",
     repo: "#",
   },
 ];
 
-const filters = ["all", "fullstack", "frontend", "backend"];
+const filters = ["all", "fullstack", "frontend"];
 
 const container = {
   hidden: { opacity: 0 },
   show: { opacity: 1, transition: { staggerChildren: 0.1 } },
+  visible: { opacity: 1 },
 };
 
 const card = {
@@ -100,8 +89,7 @@ const card = {
 };
 
 export default function Projects() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
+  const { ref } = useSectionInView();
   const [active, setActive] = useState("all");
 
   const filtered = projects.filter((p) => active === "all" || p.category === active);
@@ -112,7 +100,7 @@ export default function Projects() {
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           className="flex items-center gap-3 mb-4"
         >
@@ -124,25 +112,26 @@ export default function Projects() {
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
           className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10"
         >
-          <h2 className="text-4xl md:text-5xl font-bold">
+          <h2 className="text-4xl md:text-5xl font-bold" style={{ marginBottom: "4rem", marginTop: "1rem" }}>
             Things I&apos;ve <span className="gradient-text-pink">Built</span>
           </h2>
 
           {/* Filter tabs */}
-          <div className="flex gap-2 flex-wrap">
+          <div className="flex gap-2 flex-wrap" style={{ marginBottom: "1rem" }}>
             {filters.map((f) => (
               <button
                 key={f}
                 onClick={() => setActive(f)}
-                className={`px-4 py-1.5 rounded-lg text-xs font-medium capitalize transition-all duration-200 ${
+                className={`rounded-lg font-medium capitalize transition-all duration-200 ${
                   active === f
                     ? "bg-[var(--accent-primary)] text-white"
                     : "glass border border-[var(--border)] text-[var(--text-muted)] hover:text-[var(--text-primary)]"
                 }`}
+                style={{ padding: "0.5rem 1.25rem", fontSize: "0.8rem" }}
               >
                 {f}
               </button>
@@ -153,29 +142,35 @@ export default function Projects() {
         <motion.div
           variants={container}
           initial="hidden"
-          animate={inView ? "show" : "hidden"}
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-5"
+          animate="show"
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
         >
           <AnimatePresence mode="popLayout">
             {filtered.map((project) => (
               <motion.div
                 key={project.id}
                 variants={card}
+                initial="hidden"
+                animate="show"
+                exit="exit"
                 layout
                 className="glass border border-[var(--border)] rounded-2xl overflow-hidden group hover:border-[var(--accent-primary)] transition-all duration-300 flex flex-col"
+              style={{ minHeight: "240px" }}
               >
                 {/* Top color bar */}
                 <div className={`h-1 bg-gradient-to-r ${project.color}`} />
 
-                <div className="p-6 flex flex-col flex-1">
-                  <div className="flex items-start justify-between mb-3">
-                    <h3 className="font-bold text-base text-[var(--text-primary)] group-hover:gradient-text transition-all">
+                <div style={{ padding: "1.5rem 1.75rem" }} className="flex flex-col flex-1">
+                  <div className="flex items-start justify-between mb-4">
+                    <h3 className="font-bold text-lg text-[var(--text-primary)] group-hover:gradient-text transition-all">
                       {project.title}
                     </h3>
-                    <div className="flex items-center gap-1 text-[var(--text-muted)] text-xs">
-                      <Star size={12} className="fill-current text-yellow-500" />
-                      <span>{project.stars}</span>
-                    </div>
+                    <span
+                      className="text-xs font-mono"
+                      style={{ padding: "0.2rem 0.6rem", borderRadius: "6px", background: "rgba(108,99,255,0.12)", color: "var(--accent-primary)", whiteSpace: "nowrap" }}
+                    >
+                      Corporativo
+                    </span>
                   </div>
 
                   <p className="text-sm text-[var(--text-muted)] leading-relaxed mb-4 flex-1">
@@ -221,7 +216,7 @@ export default function Projects() {
 
         <motion.div
           initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : {}}
+          animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.8 }}
           className="text-center mt-10"
         >

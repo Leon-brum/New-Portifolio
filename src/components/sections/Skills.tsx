@@ -1,7 +1,7 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { useSectionInView } from "@/hooks/useSectionInView";
+import { motion } from "framer-motion";
 import {
   SiReact, SiNextdotjs, SiTypescript, SiNodedotjs,
   SiTailwindcss, SiPostgresql, SiDocker,
@@ -92,8 +92,8 @@ function SkillBar({ name, icon: Icon, level, color, inView }: SkillBarProps) {
 }
 
 export default function Skills() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
+  
+  const { ref, inView } = useSectionInView();
 
   return (
     <section id="skills" className="section">
@@ -103,7 +103,8 @@ export default function Skills() {
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5 }}
-          className="flex items-center gap-3 mb-6"
+          className="flex items-center gap-3 mb-8"
+          style={{ marginBottom: "1rem" }}
         >
           <span className="text-xs font-mono text-[var(--accent-tertiary)] tracking-widest uppercase">
             02. Skills
@@ -115,7 +116,8 @@ export default function Skills() {
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="text-4xl md:text-5xl font-bold mb-14"
+          className="text-4xl md:text-5xl font-bold"
+          style={{ marginBottom: "4rem" }}
         >
           Meu Tech <span className="gradient-text">Stack</span>
         </motion.h2>
@@ -128,9 +130,9 @@ export default function Skills() {
               initial="hidden"
               animate={inView ? "show" : "hidden"}
               className="glass border border-[var(--border)] rounded-2xl transition-all duration-300"
-              style={{ "--cat-color": cat.color, padding: "2rem" } as React.CSSProperties}
+              style={{ "--cat-color": cat.color, padding: "2rem 2rem 2.25rem" } as React.CSSProperties}
             >
-              <div className="flex items-center gap-2 mb-8">
+              <div className="flex items-center gap-2 mb-10">
                 <div className="w-2 h-2 rounded-full" style={{ background: cat.color }} />
                 <h3 className="font-semibold text-sm tracking-wide" style={{ color: cat.color }}>
                   {cat.name}
@@ -168,6 +170,7 @@ export default function Skills() {
                 background: "rgba(255,255,255,0.03)",
                 display: "inline-block",
                 lineHeight: "1.5",
+                marginTop: "0.5rem",
               }}
             >
               {tag}
