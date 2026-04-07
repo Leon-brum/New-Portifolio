@@ -13,15 +13,39 @@ const socials = [
   { icon: Mail, label: "Email", href: "mailto:leu-profissional@hotmail.com", handle: "leu-profissional@hotmail.com" },
 ];
 
+type Toast = { type: "success" | "error"; message: string };
+
 export default function Contact() {
   const { ref, inView } = useSectionInView();
-  const [sent, setSent] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [toast, setToast] = useState<Toast | null>(null);
   const [form, setForm] = useState({ name: "", email: "", message: "" });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const showToast = (t: Toast) => {
+    setToast(t);
+    setTimeout(() => setToast(null), 4000);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSent(true);
-    setTimeout(() => setSent(false), 3000);
+    setLoading(true);
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      if (res.ok) {
+        setForm({ name: "", email: "", message: "" });
+        showToast({ type: "success", message: "Mensagem enviada! Entrarei em contato em breve." });
+      } else {
+        showToast({ type: "error", message: "Falha ao enviar. Tente novamente." });
+      }
+    } catch {
+      showToast({ type: "error", message: "Erro de conexão. Tente novamente." });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -110,7 +134,7 @@ export default function Contact() {
               className="flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[var(--accent-primary)] to-[var(--accent-tertiary)] text-white font-semibold text-sm shadow-lg hover:shadow-[0_0_30px_rgba(108,99,255,0.4)] transition-all duration-300"
               style={{ padding: "0.875rem", cursor: "pointer" }}
             >
-              {sent ? "Mensagem enviada! ✓" : <><Send size={16} /> Enviar Mensagem</>}
+              {loading ? "Enviando..." : <><Send size={16} /> Enviar Mensagem</>}
             </motion.button>
           </motion.form>
 
@@ -194,6 +218,36 @@ export default function Contact() {
           </p>
         </div>
       </div>
+
+      {/* Toast */}
+      {toast && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 20 }}
+          style={{
+            position: "fixed",
+            bottom: "2rem",
+            right: "2rem",
+            zIndex: 9999,
+            padding: "1rem 1.5rem",
+            borderRadius: "12px",
+            display: "flex",
+            alignItems: "center",
+            gap: "0.75rem",
+            backdropFilter: "blur(16px)",
+            border: `1px solid ${toast.type === "success" ? "rgba(52,211,153,0.3)" : "rgba(255,101,132,0.3)"}`,
+            background: toast.type === "success" ? "rgba(52,211,153,0.1)" : "rgba(255,101,132,0.1)",
+            color: toast.type === "success" ? "#34d399" : "#ff6584",
+            fontSize: "0.875rem",
+            fontWeight: 500,
+            boxShadow: "0 8px 32px rgba(0,0,0,0.3)",
+          }}
+        >
+          <span style={{ fontSize: "1.1rem" }}>{toast.type === "success" ? "✓" : "✕"}</span>
+          {toast.message}
+        </motion.div>
+      )}
     </section>
   );
 }

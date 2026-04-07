@@ -13,9 +13,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Portfolio | Developer",
-  description: "Full Stack Developer Portfolio — building modern, scalable, and beautiful applications.",
-  keywords: ["developer", "portfolio", "full stack", "react", "next.js"],
+  title: "Leonardo Moreno | Full Stack Developer",
+  description: "Full Stack Developer com quase 2 anos de experiência, especializado em React, Next.js, Node.js e cloud com AWS.",
+  keywords: ["developer", "portfolio", "full stack", "react", "next.js", "typescript", "node.js"],
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({
