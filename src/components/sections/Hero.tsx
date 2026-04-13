@@ -157,10 +157,25 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[var(--border)] glass text-xs text-[var(--text-secondary)] mb-6"
+              className="inline-flex items-center gap-2 rounded-full text-xs text-[var(--text-secondary)] mb-6 relative overflow-hidden"
+              style={{
+                padding: "0.4rem 1.1rem",
+                background: "var(--bg-card)",
+                border: "1px solid transparent",
+                backgroundClip: "padding-box",
+              }}
             >
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              Open to new opportunities
+              {/* Animated border */}
+              <span
+                className="absolute inset-0 rounded-full"
+                style={{
+                  background: "linear-gradient(var(--bg-card), var(--bg-card)) padding-box, linear-gradient(90deg, var(--accent-primary), var(--accent-tertiary), var(--accent-secondary), var(--accent-primary)) border-box",
+                  border: "1px solid transparent",
+                  animation: "border-spin 3s linear infinite",
+                }}
+              />
+              <span className="w-2 h-2 rounded-full bg-emerald-400 relative z-10" style={{ flexShrink: 0 }} />
+              <span className="relative z-10">Open to new opportunities</span>
             </motion.div>
 
             {/* Name */}
@@ -239,7 +254,7 @@ export default function Hero() {
                   fontWeight: 600,
                   fontSize: "0.95rem",
                   whiteSpace: "nowrap",
-                  background: "rgba(19, 19, 31, 0.5)",
+                  background: "var(--bg-card)",
                   backdropFilter: "blur(12px)",
                   transition: "all 0.3s",
                 }}
@@ -315,7 +330,8 @@ export default function Hero() {
             <motion.div
               animate={{ y: [0, -6, 0] }}
               transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
-              className="absolute -bottom-3 -right-3 glass border border-[var(--border)] rounded-xl px-3 py-2 text-xs font-mono text-[var(--accent-tertiary)]"
+              className="absolute -bottom-3 -right-3 glass border border-[var(--border)] rounded-xl font-mono text-[var(--accent-tertiary)]"
+              style={{ padding: "0.5rem 0.875rem", fontSize: "0.75rem", whiteSpace: "nowrap" }}
             >
               {"</> Full Stack"}
             </motion.div>

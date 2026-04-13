@@ -4,14 +4,14 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { useTheme } from "@/components/ThemeProvider";
-import { Sun, Moon } from "lucide-react";
+import { Sun, Moon, X } from "lucide-react";
 
 const links = [
-  { href: "#about", label: "About" },
+  { href: "#about", label: "Sobre" },
   { href: "#skills", label: "Skills" },
-  { href: "#projects", label: "Projects" },
-  { href: "#experience", label: "Experience" },
-  { href: "#contact", label: "Contact" },
+  { href: "#projects", label: "Projetos" },
+  { href: "#experience", label: "Experiência" },
+  { href: "#contact", label: "Contato" },
 ];
 
 export default function Navbar() {
@@ -93,7 +93,7 @@ export default function Navbar() {
             className="flex items-center gap-2 rounded-lg border border-[var(--accent-primary)] text-[var(--accent-primary)] text-sm font-medium hover:bg-[var(--accent-primary)] hover:text-white transition-all duration-200"
             style={{ padding: "0.45rem 1.1rem" }}
           >
-            Hire me
+            Contrate-me
           </motion.a>
         </div>
 
@@ -118,37 +118,123 @@ export default function Navbar() {
         </button>
       </nav>
 
-      {/* Mobile menu */}
+      {/* Mobile menu — full screen overlay */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden glass border-t border-[var(--border)] overflow-hidden"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.25 }}
+            className="md:hidden fixed inset-0 z-40 flex flex-col"
+            style={{
+              background: "var(--bg-primary)",
+              paddingTop: "6rem",
+              paddingBottom: "2.5rem",
+              paddingLeft: "2rem",
+              paddingRight: "2rem",
+            }}
           >
-            <ul className="flex flex-col px-6 py-4 gap-4">
-              {links.map((link) => (
-                <li key={link.href}>
-                  <a
-                    href={link.href}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setMenuOpen(false);
-                      setTimeout(() => {
-                        const el = document.querySelector(link.href) as HTMLElement;
-                        if (!el) return;
-                        const top = el.getBoundingClientRect().top + window.scrollY - 80;
-                        window.scrollTo({ top, behavior: "smooth" });
-                      }, 150);
-                    }}
-                    className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors text-sm font-medium"
-                  >
-                    {link.label}
-                  </a>
-                </li>
+            {/* Close button */}
+            <button
+              onClick={() => setMenuOpen(false)}
+              aria-label="Fechar menu"
+              style={{
+                position: "absolute",
+                top: "1.25rem",
+                right: "1.25rem",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: "2.5rem",
+                height: "2.5rem",
+                borderRadius: "0.75rem",
+                border: "1px solid var(--border)",
+                background: "var(--bg-card)",
+                color: "var(--text-primary)",
+                cursor: "pointer",
+              }}
+            >
+              <X size={20} />
+            </button>
+
+            {/* Nav links */}
+            <nav className="flex flex-col gap-1 flex-1">
+              {links.map((link, i) => (
+                <motion.a
+                  key={link.href}
+                  href={link.href}
+                  initial={{ opacity: 0, x: -24 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.07, duration: 0.3 }}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setMenuOpen(false);
+                    setTimeout(() => {
+                      const el = document.querySelector(link.href) as HTMLElement;
+                      if (!el) return;
+                      const top = el.getBoundingClientRect().top + window.scrollY - 80;
+                      window.scrollTo({ top, behavior: "smooth" });
+                    }, 150);
+                  }}
+                  style={{
+                    fontSize: "2rem",
+                    fontWeight: 700,
+                    color: "var(--text-primary)",
+                    padding: "0.6rem 0",
+                    borderBottom: "1px solid var(--border)",
+                    display: "block",
+                    letterSpacing: "-0.02em",
+                  }}
+                >
+                  {link.label}
+                </motion.a>
               ))}
-            </ul>
+            </nav>
+
+            {/* Bottom row */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.4 }}
+              className="flex items-center justify-between"
+              style={{ marginTop: "2rem" }}
+            >
+              <a
+                href="#contact"
+                onClick={() => setMenuOpen(false)}
+                style={{
+                  padding: "0.75rem 1.75rem",
+                  borderRadius: "0.75rem",
+                  background: "linear-gradient(135deg, var(--accent-primary), var(--accent-tertiary))",
+                  color: "white",
+                  fontWeight: 600,
+                  fontSize: "0.95rem",
+                }}
+              >
+                Contrate-me
+              </a>
+
+              <button
+                onClick={() => toggle()}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "0.5rem",
+                  padding: "0.75rem 1.25rem",
+                  borderRadius: "0.75rem",
+                  border: "1px solid var(--border)",
+                  background: "var(--bg-card)",
+                  color: "var(--text-secondary)",
+                  fontSize: "0.9rem",
+                  fontWeight: 500,
+                  cursor: "pointer",
+                }}
+              >
+                {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
+                {theme === "dark" ? "Tema Claro" : "Tema Escuro"}
+              </button>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>

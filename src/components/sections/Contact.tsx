@@ -26,7 +26,7 @@ export default function Contact() {
     setTimeout(() => setToast(null), 4000);
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     try {
@@ -50,7 +50,7 @@ export default function Contact() {
 
   return (
     <section id="contact" className="section" style={{ display: "flex", flexDirection: "column" }}>
-      <div className="wrapper" style={{ flexGrow: 1, display: "flex", flexDirection: "column", justifyContent: "center" }}>
+      <div className="wrapper" style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "center" }}>
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 20 }}
@@ -199,7 +199,7 @@ export default function Contact() {
       </div>
 
       {/* Footer */}
-      <div style={{ width: "100%", borderTop: "1px solid var(--border)", padding: "1.5rem clamp(1.25rem, 5vw, 4rem)" }}>
+      <div style={{ width: "100%", borderTop: "1px solid var(--border)", padding: "1.5rem clamp(1.25rem, 5vw, 4rem)", marginTop: "auto" }}>
         <div className="flex flex-col md:flex-row items-center justify-between gap-4" style={{ maxWidth: "1152px", margin: "0 auto" }}>
           <a href="#" className="text-lg font-bold gradient-text font-mono">{"<dev />"}</a>
           <nav className="flex flex-wrap items-center justify-center gap-6">
@@ -210,11 +210,11 @@ export default function Contact() {
             ))}
           </nav>
           <p className="text-xs text-[var(--text-muted)] flex items-center gap-1.5">
-            Built with{" "}
+            Feito com{" "}
             <motion.span animate={{ scale: [1, 1.2, 1] }} transition={{ repeat: Infinity, duration: 1.5 }}>
               <Heart size={12} style={{ color: "var(--accent-secondary)" }} className="fill-current" />
             </motion.span>{" "}
-            using Next.js & Framer Motion
+            usando Next.js & Framer Motion
           </p>
         </div>
       </div>

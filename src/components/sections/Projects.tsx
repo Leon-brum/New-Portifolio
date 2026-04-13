@@ -74,7 +74,11 @@ const projects = [
   },
 ];
 
-const filters = ["all", "fullstack", "frontend"];
+const filters = [
+  { value: "todos", label: "Todos" },
+  { value: "fullstack", label: "Fullstack" },
+  { value: "frontend", label: "Frontend" },
+];
 
 const container = {
   hidden: { opacity: 0 },
@@ -90,9 +94,9 @@ const card = {
 
 export default function Projects() {
   const { ref } = useSectionInView();
-  const [active, setActive] = useState("all");
+  const [active, setActive] = useState("todos");
 
-  const filtered = projects.filter((p) => active === "all" || p.category === active);
+  const filtered = projects.filter((p) => active === "todos" || p.category === active);
 
   return (
     <section id="projects" className="section">
@@ -105,7 +109,7 @@ export default function Projects() {
           className="flex items-center gap-3 mb-4"
         >
           <span className="text-xs font-mono text-[var(--accent-secondary)] tracking-widest uppercase">
-            03. Projects
+            03. Projetos
           </span>
           <div className="flex-1 h-px bg-gradient-to-r from-[var(--accent-secondary)] to-transparent opacity-30" />
         </motion.div>
@@ -117,23 +121,23 @@ export default function Projects() {
           className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10"
         >
           <h2 className="text-4xl md:text-5xl font-bold" style={{ marginBottom: "4rem", marginTop: "1rem" }}>
-            Things I&apos;ve <span className="gradient-text-pink">Built</span>
+            O que eu <span className="gradient-text-pink">Construí</span>
           </h2>
 
           {/* Filter tabs */}
           <div className="flex gap-2 flex-wrap" style={{ marginBottom: "1rem" }}>
             {filters.map((f) => (
               <button
-                key={f}
-                onClick={() => setActive(f)}
-                className={`rounded-lg font-medium capitalize transition-all duration-200 ${
-                  active === f
+                key={f.value}
+                onClick={() => setActive(f.value)}
+                className={`rounded-lg font-medium transition-all duration-200 ${
+                  active === f.value
                     ? "bg-[var(--accent-primary)] text-white"
                     : "glass border border-[var(--border)] text-[var(--text-muted)] hover:text-[var(--text-primary)]"
                 }`}
                 style={{ padding: "0.5rem 1.25rem", fontSize: "0.8rem" }}
               >
-                {f}
+                {f.label}
               </button>
             ))}
           </div>
@@ -181,7 +185,8 @@ export default function Projects() {
                     {project.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="px-2 py-0.5 text-xs rounded-md bg-[var(--bg-primary)] text-[var(--text-muted)] font-mono border border-[var(--border)]"
+                        className="text-xs rounded-md font-mono border border-[var(--border)]"
+                        style={{ padding: "0.3rem 0.65rem", background: "var(--bg-primary)", color: "var(--text-muted)", lineHeight: "1.4", display: "inline-block" }}
                       >
                         {tag}
                       </span>
@@ -196,7 +201,7 @@ export default function Projects() {
                       className="flex items-center gap-1.5 text-xs text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
                     >
                       <FaGithub size={14} />
-                      Code
+                      Código
                     </motion.a>
                     <motion.a
                       href={project.demo}
@@ -205,7 +210,7 @@ export default function Projects() {
                       className="flex items-center gap-1.5 text-xs text-[var(--accent-primary)] hover:text-[var(--accent-tertiary)] transition-colors"
                     >
                       <ExternalLink size={14} />
-                      Live Demo
+                      Ver Demo
                     </motion.a>
                   </div>
                 </div>
@@ -224,7 +229,7 @@ export default function Projects() {
             href="#"
             className="text-sm text-[var(--text-muted)] hover:text-[var(--accent-primary)] transition-colors font-medium"
           >
-            View all projects on GitHub →
+            Ver todos os projetos no GitHub →
           </a>
         </motion.div>
       </div>

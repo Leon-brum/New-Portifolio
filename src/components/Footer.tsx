@@ -4,11 +4,11 @@ import { motion } from "framer-motion";
 import { Heart } from "lucide-react";
 
 const links = [
-  { href: "#about", label: "About" },
+  { href: "#about", label: "Sobre" },
   { href: "#skills", label: "Skills" },
-  { href: "#projects", label: "Projects" },
-  { href: "#experience", label: "Experience" },
-  { href: "#contact", label: "Contact" },
+  { href: "#projects", label: "Projetos" },
+  { href: "#experience", label: "Experiência" },
+  { href: "#contact", label: "Contato" },
 ];
 
 export default function Footer() {
@@ -33,14 +33,14 @@ export default function Footer() {
           </nav>
 
           <p className="text-xs text-[var(--text-muted)] flex items-center gap-1.5">
-            Built with{" "}
+            Feito com{" "}
             <motion.span
               animate={{ scale: [1, 1.2, 1] }}
               transition={{ repeat: Infinity, duration: 1.5 }}
             >
               <Heart size={12} className="text-[var(--accent-secondary)] fill-current" />
             </motion.span>{" "}
-            using Next.js & Framer Motion
+            usando Next.js & Framer Motion
           </p>
         </div>
       </div>

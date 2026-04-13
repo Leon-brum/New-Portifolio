@@ -107,7 +107,7 @@ export default function Skills() {
           style={{ marginBottom: "1rem" }}
         >
           <span className="text-xs font-mono text-[var(--accent-tertiary)] tracking-widest uppercase">
-            02. Skills
+            02. Habilidades
           </span>
           <div className="flex-1 h-px bg-gradient-to-r from-[var(--accent-tertiary)] to-transparent opacity-30" />
         </motion.div>

@@ -6,10 +6,12 @@ import Projects from "@/components/sections/Projects";
 import Experience from "@/components/sections/Experience";
 import Contact from "@/components/sections/Contact";
 import ScrollSnap from "@/components/ScrollSnap";
+import Aurora from "@/components/Aurora";
 
 export default function Home() {
   return (
     <>
+      <Aurora />
       <ScrollSnap />
       <Navbar />
       <main className="w-full overflow-x-hidden">
